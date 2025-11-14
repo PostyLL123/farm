@@ -41,5 +41,17 @@ def main():
             file_path = os.path.join(data_file_path, file_name)
             df = data_process(file_path,args)
 
+def plot_data(df, file_name, args):
+    plt.figure(figsize=(12, 6))
+    sns.lineplot(data=df)
+    plt.title(f"Data Visualization for {file_name}")
+    plt.xlabel("Time")
+    plt.ylabel("Values")
+    plt.legend(df.columns)
+    plot_file_path = os.path.join(args.log_dir, f"{file_name}_visualization.png")
+    plt.savefig(plot_file_path)
+    plt.close()
+    args.logger.info(f"Plot saved to {plot_file_path}")
+
 if __name__ == "__main__":
     main()
