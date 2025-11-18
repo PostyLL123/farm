@@ -74,22 +74,57 @@ def create_all_features(df_list, logger, window_size='10min'):
     return processed_dfs
 
 # --- 步骤 4：计算邻接矩阵 (与之前相同) ---
-def get_adjacency_matrix(farm_order_to_yy, coordinates, logger, sigma_scale=0.1, epsilon=0.01):
-    logger.info(f"--- 步骤 4: 正在计算 GNN 邻接矩阵 ---")
+def haversine_distance(lat1, lon1, lat2, lon2):
+    """
+    计算两个 (纬度, 经度) 点之间的地球表面距离 (单位：米)。
+    """
+    R = 6371000  # 地球半径，单位：米
+
+    lat1_rad = np.radians(lat1)
+    lon1_rad = np.radians(lon1)
+    lat2_rad = np.radians(lat2)
+    lon2_rad = np.radians(lon2)
+
+    dlon = lon2_rad - lon1_rad
+    dlat = lat2_rad - lat1_rad
+
+    a = np.sin(dlat / 2)**2 + np.cos(lat1_rad) * np.cos(lat2_rad) * np.sin(dlon / 2)**2
+    c = 2 * np.arctan2(np.sqrt(a), np.sqrt(1 - a))
+
+    distance = R * c
+    return distance
+
+def get_adjacency_matrix(farm_order_to_yy, lat_lon_coordinates, logger, sigma_scale=0.1, epsilon=0.01):
+    """
+    使用 Haversine 公式计算距离，并生成邻接矩阵 A。
+    """
+    logger.info(f"--- 步骤 1: 正在计算 *正确* 的GNN邻接矩阵 (使用经纬度) ---")
     num_nodes = len(farm_order_to_yy)
-    node_coordinates = np.zeros((num_nodes, 2))
+    node_coordinates_latlon = np.zeros((num_nodes, 2))
     
+    logger.info("    正在按 Farm 1...10 的顺序构建 (纬度, 经度) 数组:")
+    # 按照 'Farm 1', 'Farm 2'... 的顺序构建坐标数组
     for i in range(num_nodes):
         farm_label = f'Farm {i+1}'
         yy_label = farm_order_to_yy[farm_label]
-        if yy_label not in coordinates:
-            raise KeyError(f"坐标 ' {yy_label}' (来自 Farm {i+1}) 未在 COORDINATES 字典中找到。")
-        node_coordinates[i] = coordinates[yy_label]
+        if yy_label not in lat_lon_coordinates:
+            raise KeyError(f"坐标 ' {yy_label}' (来自 {farm_label}) 未在 LAT_LON_COORDINATES 字典中找到。")
+        node_coordinates_latlon[i] = lat_lon_coordinates[yy_label]
+        logger.info(f"      {farm_label} -> {yy_label} -> (Lat: {lat_lon_coordinates[yy_label][0]}, Lon: {lat_lon_coordinates[yy_label][1]})")
 
-    logger.info(f"    节点坐标 (x,y) 数组 (顺序: Farm 1 到 {num_nodes}):\n {node_coordinates}")
-    dist_matrix = cdist(node_coordinates, node_coordinates, 'euclidean')
-    logger.debug(f"    物理距离矩阵 (D) [米] (前5x5):\n {np.round(dist_matrix[:5, :5], 1)}")
+    # (!!) 核心修改：使用 Haversine 计算距离矩阵 (D)
+    dist_matrix = np.zeros((num_nodes, num_nodes))
+    for i in range(num_nodes):
+        for j in range(i + 1, num_nodes):
+            lat1, lon1 = node_coordinates_latlon[i]
+            lat2, lon2 = node_coordinates_latlon[j]
+            dist = haversine_distance(lat1, lon1, lat2, lon2)
+            dist_matrix[i, j] = dist
+            dist_matrix[j, i] = dist
+            
+    logger.info(f"\n    物理距离矩阵 (D) [米] (前5x5):\n {np.round(dist_matrix[:, :], 1)}")
 
+    # 计算邻接矩阵 (A) - 高斯核
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", RuntimeWarning)
         sigma_sq = (dist_matrix[dist_matrix > 0].mean()**2) * sigma_scale
@@ -97,10 +132,12 @@ def get_adjacency_matrix(farm_order_to_yy, coordinates, logger, sigma_scale=0.1,
         dist_sq = dist_matrix**2
         adjacency_matrix = np.exp(-dist_sq / sigma_sq)
     
+    # 稀疏化 (剪枝)
     adjacency_matrix[adjacency_matrix < epsilon] = 0
-    logger.info(f"    GNN 邻接矩阵 (A) (前5x5):\n {np.round(adjacency_matrix[:5, :5], 3)}")
-    return adjacency_matrix
+    # (!!) 修正：确保对角线为1
+    np.fill_diagonal(adjacency_matrix, 1.0)
 
+    return adjacency_matrix
 # --- 步骤 5：堆叠并保存 (!! MODIFIED !!) ---
 def stack_and_save_to_npz(processed_dfs, adj_matrix, output_dir, logger):
     """
@@ -150,13 +187,19 @@ def main():
         'combined_07.csv': 'YY8', 'combined_08.csv': 'YY9',
         'combined_09.csv': 'YY10', 'combined_10.csv': 'YY12'
     }
-    COORDINATES = {
-        'YY1': (38508747, 3875372), 'YY2': (38509538, 3875289),
-        'YY3': (38510683, 3875381), 'YY4': (38513264, 3874825),
-        'YY5': (38514821, 3874546), 'YY6': (38518152, 3875364),
-        'YY7': (38519380, 3875153), 'YY8': (38520854, 3875241),
-        'YY9': (38520843, 3872643), 'YY10': (38519738, 3873102),
-        'YY11': (38521402, 3871725), 'YY12': (38521573, 3871004)
+    LAT_LON_COORDINATES = {
+        'YY1':  (35.00698213, 114.09582558), # (纬度, 经度)
+        'YY2':  (35.00622773, 114.10449460),
+        'YY3':  (35.00704826, 114.11703941), # 备选
+        'YY4':  (35.00200424, 114.14529942),
+        'YY5':  (34.99946417, 114.16235506),
+        'YY6':  (35.00678586, 114.19885913),
+        'YY7':  (35.00486116, 114.21231153),
+        'YY8':  (35.00562687, 114.22845357),
+        'YY9':  (34.98221293, 114.22826586),
+        'YY10': (34.98636518, 114.21618257),
+        'YY11': (34.97992119, 114.23437093), # 备选
+        'YY12': (34.96742042, 114.23622048)
     }
     WINDOW_SIZE_STR = '10min'
     MASTER_NODE_INDEX = 0
@@ -223,7 +266,7 @@ def main():
             f'Farm {i+1}': FILENAME_TO_YY_MAPPING[load_order_filenames[i]]
             for i in range(num_nodes)
         }
-        adjacency_matrix = get_adjacency_matrix(farm_order_to_yy, COORDINATES, args.logger)
+        adjacency_matrix = get_adjacency_matrix(farm_order_to_yy, LAT_LON_COORDINATES, args.logger)
     except Exception as e:
         args.logger.error(f"!!! GNN 邻接矩阵创建失败: {e}")
         return
