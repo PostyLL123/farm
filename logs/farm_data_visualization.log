@@ -168,3 +168,173 @@ min    0.000000e+00  -9.000000e+01 -1.060000e+01 -1.651800e+02
 50%    5.190000e+00   1.792600e+02  1.520000e+01  6.940200e+02
 75%    7.690000e+00   1.899500e+02  2.370000e+01  2.115350e+03
 max    2.907000e+01   3.589200e+02  3.910000e+01  3.428000e+03
+2025-11-17 10:53:07,294 - INFO - turbine01 Data loaded from /home/luoew/stat_data/henan_nanyang/combined_01.csv with shape (4654665, 4)
+2025-11-17 10:53:07,326 - INFO - datanan info:
+WindSpeed        0
+WindDirection    0
+Temperature      0
+Power            0
+dtype: int64
+2025-11-17 10:53:08,188 - INFO - data description:
+          WindSpeed  WindDirection   Temperature         Power
+count  4.654665e+06   4.654665e+06  4.654665e+06  4.654665e+06
+mean   5.816785e+00   1.806158e+02  1.505157e+01  1.075202e+03
+std    3.186559e+00   2.456816e+01  1.031224e+01  1.053554e+03
+min    0.000000e+00  -9.000000e+01 -1.050000e+01 -1.587800e+02
+25%    3.420000e+00   1.719500e+02  6.400000e+00  1.344500e+02
+50%    5.420000e+00   1.809700e+02  1.520000e+01  6.850600e+02
+75%    7.850000e+00   1.888400e+02  2.360000e+01  1.924560e+03
+max    3.145000e+01   3.582600e+02  3.910000e+01  3.392000e+03
+2025-11-17 10:53:11,911 - INFO - turbine02 Data loaded from /home/luoew/stat_data/henan_nanyang/combined_02.csv with shape (4627814, 4)
+2025-11-17 10:53:11,942 - INFO - datanan info:
+WindSpeed        0
+WindDirection    0
+Temperature      0
+Power            0
+dtype: int64
+2025-11-17 10:53:12,808 - INFO - data description:
+          WindSpeed  WindDirection   Temperature         Power
+count  4.627814e+06   4.627814e+06  4.627814e+06  4.627814e+06
+mean   5.668265e+00   1.802283e+02  1.502683e+01  1.087861e+03
+std    3.173985e+00   2.621008e+01  1.026759e+01  1.089979e+03
+min    0.000000e+00  -9.000000e+01 -1.050000e+01 -9.219000e+01
+25%    3.280000e+00   1.699700e+02  6.400000e+00  1.320000e+02
+50%    5.160000e+00   1.799600e+02  1.500000e+01  6.390000e+02
+75%    7.670000e+00   1.912200e+02  2.350000e+01  1.986030e+03
+max    2.676000e+01   3.589200e+02  3.920000e+01  3.416000e+03
+2025-11-17 10:53:16,540 - INFO - turbine03 Data loaded from /home/luoew/stat_data/henan_nanyang/combined_03.csv with shape (4666248, 4)
+2025-11-17 10:53:16,573 - INFO - datanan info:
+WindSpeed        0
+WindDirection    0
+Temperature      0
+Power            0
+dtype: int64
+2025-11-17 10:53:17,451 - INFO - data description:
+          WindSpeed  WindDirection   Temperature         Power
+count  4.666248e+06   4.666248e+06  4.666248e+06  4.666248e+06
+mean   5.563361e+00   1.804922e+02  1.503392e+01  1.115342e+03
+std    3.077979e+00   2.450220e+01  1.026577e+01  1.091917e+03
+min    0.000000e+00  -5.858000e+01 -1.020000e+01 -7.683000e+01
+25%    3.280000e+00   1.708200e+02  6.400000e+00  1.421300e+02
+50%    5.090000e+00   1.793100e+02  1.510000e+01  6.850000e+02
+75%    7.460000e+00   1.886200e+02  2.350000e+01  2.041000e+03
+max    3.106000e+01   3.591300e+02  3.950000e+01  3.412480e+03
+2025-11-17 10:53:21,215 - INFO - turbine04 Data loaded from /home/luoew/stat_data/henan_nanyang/combined_04.csv with shape (4655615, 4)
+2025-11-17 10:53:21,248 - INFO - datanan info:
+WindSpeed        0
+WindDirection    0
+Temperature      0
+Power            0
+dtype: int64
+2025-11-17 10:53:22,077 - INFO - data description:
+          WindSpeed  WindDirection   Temperature         Power
+count  4.655615e+06   4.655615e+06  4.655615e+06  4.655615e+06
+mean   5.603688e+00   1.806778e+02  1.544666e+01  1.093847e+03
+std    3.125864e+00   2.631406e+01  1.038021e+01  1.081488e+03
+min    0.000000e+00  -9.000000e+01 -9.900000e+00 -8.835000e+01
+25%    3.250000e+00   1.684100e+02  6.700000e+00  1.330000e+02
+50%    5.170000e+00   1.813700e+02  1.550000e+01  6.700000e+02
+75%    7.550000e+00   1.921400e+02  2.410000e+01  1.983000e+03
+max    3.022000e+01   3.587000e+02  4.010000e+01  3.402000e+03
+2025-11-17 10:53:25,942 - INFO - turbine05 Data loaded from /home/luoew/stat_data/henan_nanyang/combined_05.csv with shape (4672665, 4)
+2025-11-17 10:53:25,978 - INFO - datanan info:
+WindSpeed        0
+WindDirection    0
+Temperature      0
+Power            0
+dtype: int64
+2025-11-17 10:53:26,824 - INFO - data description:
+          WindSpeed  WindDirection   Temperature         Power
+count  4.672665e+06   4.672665e+06  4.672665e+06  4.672665e+06
+mean   5.653921e+00   1.797067e+02  1.535583e+01  1.145751e+03
+std    3.131868e+00   2.471718e+01  1.033072e+01  1.107820e+03
+min    0.000000e+00  -9.000000e+01 -1.020000e+01 -1.613400e+02
+25%    3.300000e+00   1.717000e+02  6.700000e+00  1.340000e+02
+50%    5.230000e+00   1.785100e+02  1.550000e+01  7.210000e+02
+75%    7.590000e+00   1.873100e+02  2.400000e+01  2.129440e+03
+max    3.321000e+01   3.589200e+02  4.020000e+01  3.441930e+03
+2025-11-17 10:53:30,729 - INFO - turbine06 Data loaded from /home/luoew/stat_data/henan_nanyang/combined_06.csv with shape (4668684, 4)
+2025-11-17 10:53:30,764 - INFO - datanan info:
+WindSpeed        0
+WindDirection    0
+Temperature      0
+Power            0
+dtype: int64
+2025-11-17 10:53:31,754 - INFO - data description:
+          WindSpeed  WindDirection   Temperature         Power
+count  4.668684e+06   4.668684e+06  4.668684e+06  4.668684e+06
+mean   5.740441e+00   1.803967e+02  1.524366e+01  1.138849e+03
+std    3.200674e+00   2.416401e+01  1.031575e+01  1.105197e+03
+min    0.000000e+00  -9.000000e+01 -1.000000e+01 -1.639000e+02
+25%    3.340000e+00   1.708200e+02  6.600000e+00  1.410000e+02
+50%    5.250000e+00   1.798300e+02  1.530000e+01  7.093900e+02
+75%    7.760000e+00   1.895400e+02  2.390000e+01  2.116640e+03
+max    3.241000e+01   3.589200e+02  3.980000e+01  3.427000e+03
+2025-11-17 10:53:35,896 - INFO - turbine07 Data loaded from /home/luoew/stat_data/henan_nanyang/combined_07.csv with shape (4663728, 4)
+2025-11-17 10:53:35,932 - INFO - datanan info:
+WindSpeed        0
+WindDirection    0
+Temperature      0
+Power            0
+dtype: int64
+2025-11-17 10:53:36,966 - INFO - data description:
+          WindSpeed  WindDirection   Temperature         Power
+count  4.663728e+06   4.663728e+06  4.663728e+06  4.663728e+06
+mean   5.531609e+00   1.805747e+02  1.546214e+01  1.095314e+03
+std    3.100908e+00   2.578320e+01  1.027297e+01  1.080461e+03
+min    0.000000e+00  -9.000000e+01 -1.000000e+01 -1.792700e+02
+25%    3.240000e+00   1.710400e+02  6.900000e+00  1.400000e+02
+50%    5.070000e+00   1.798800e+02  1.560000e+01  6.748100e+02
+75%    7.410000e+00   1.892800e+02  2.400000e+01  1.964000e+03
+max    2.942000e+01   3.580400e+02  3.980000e+01  3.421000e+03
+2025-11-17 10:53:40,980 - INFO - turbine08 Data loaded from /home/luoew/stat_data/henan_nanyang/combined_08.csv with shape (4680966, 4)
+2025-11-17 10:53:41,016 - INFO - datanan info:
+WindSpeed        0
+WindDirection    0
+Temperature      0
+Power            0
+dtype: int64
+2025-11-17 10:53:42,048 - INFO - data description:
+          WindSpeed  WindDirection   Temperature         Power
+count  4.680966e+06   4.680966e+06  4.680966e+06  4.680966e+06
+mean   5.698323e+00   1.805164e+02  1.575050e+01  1.140331e+03
+std    3.221882e+00   2.376180e+01  1.032565e+01  1.106434e+03
+min    0.000000e+00  -5.858000e+01 -1.040000e+01 -7.555000e+01
+25%    3.210000e+00   1.719600e+02  7.200000e+00  1.370000e+02
+50%    5.230000e+00   1.796500e+02  1.570000e+01  7.090000e+02
+75%    7.850000e+00   1.883800e+02  2.440000e+01  2.140960e+03
+max    2.795000e+01   3.587000e+02  3.950000e+01  3.424010e+03
+2025-11-17 10:53:45,975 - INFO - turbine09 Data loaded from /home/luoew/stat_data/henan_nanyang/combined_09.csv with shape (4667803, 4)
+2025-11-17 10:53:46,006 - INFO - datanan info:
+WindSpeed        0
+WindDirection    0
+Temperature      0
+Power            0
+dtype: int64
+2025-11-17 10:53:46,880 - INFO - data description:
+          WindSpeed  WindDirection   Temperature         Power
+count  4.667803e+06   4.667803e+06  4.667803e+06  4.667803e+06
+mean   5.878816e+00   1.810282e+02  1.582009e+01  1.123523e+03
+std    3.270491e+00   2.597993e+01  1.025296e+01  1.096668e+03
+min    0.000000e+00  -9.000000e+01 -1.010000e+01 -9.348000e+01
+25%    3.370000e+00   1.714800e+02  7.200000e+00  1.310000e+02
+50%    5.420000e+00   1.798300e+02  1.590000e+01  7.180000e+02
+75%    8.080000e+00   1.889300e+02  2.440000e+01  2.096150e+03
+max    2.824000e+01   3.589200e+02  4.030000e+01  3.523000e+03
+2025-11-17 10:53:50,661 - INFO - turbine10 Data loaded from /home/luoew/stat_data/henan_nanyang/combined_10.csv with shape (4673761, 4)
+2025-11-17 10:53:50,692 - INFO - datanan info:
+WindSpeed        0
+WindDirection    0
+Temperature      0
+Power            0
+dtype: int64
+2025-11-17 10:53:51,558 - INFO - data description:
+          WindSpeed  WindDirection   Temperature         Power
+count  4.673761e+06   4.673761e+06  4.673761e+06  4.673761e+06
+mean   5.634885e+00   1.805341e+02  1.513138e+01  1.133000e+03
+std    3.145760e+00   2.522441e+01  1.024125e+01  1.103392e+03
+min    0.000000e+00  -9.000000e+01 -1.060000e+01 -1.651800e+02
+25%    3.230000e+00   1.699400e+02  6.500000e+00  1.330000e+02
+50%    5.190000e+00   1.792600e+02  1.520000e+01  6.940200e+02
+75%    7.690000e+00   1.899500e+02  2.370000e+01  2.115350e+03
+max    2.907000e+01   3.589200e+02  3.910000e+01  3.428000e+03
