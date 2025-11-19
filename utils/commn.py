@@ -132,7 +132,7 @@ def save_config(module_name, work_dir):
     '''
     Helper function to save the config setting
     '''
-    log_path = os.path.join(work_dir, 'farm_predict', 'config')
+    log_path = os.path.join(work_dir, 'config')
     folder_mkdir(work_dir)
     folder_mkdir(log_path)
     if get_rank() == 0:

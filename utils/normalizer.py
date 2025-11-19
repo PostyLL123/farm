@@ -78,7 +78,7 @@ class DataNormalizer:
         else:
             values = data.copy()
 
-        if values.dim == 1 and len(self.params.get('mean', [0])) == 1:
+        if values.ndim == 1 and len(self.params.get('mean', [0])) == 1:
             values = values.reshape(-1, 1)
 
         if self.method == 'standard':
@@ -121,7 +121,7 @@ class DataNormalizer:
         else:
             values = data.copy()
 
-        if values.dim == 1 and len(self.params.get('mean', [0])) == 1:
+        if values.ndim == 1 and len(self.params.get('mean', [0])) == 1:
             values = values.reshape(-1, 1)
 
         if self.method == 'standard':
