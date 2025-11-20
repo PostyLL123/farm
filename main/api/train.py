@@ -25,7 +25,7 @@ def train_onepart(cfg, model, train_loader, optimizer, scheduler, epoch, time_co
         loss_all.append(loss.item())
 
         pbar.set_postfix({'loss': f'{loss.item():.4f}'})
-
+        '''
         if batch_num % cfg.display_interval == 0:
             cfg.logger.info(
                 '[LOCAL_RANK %d Epoch %d Batch %d ] ||| [lr: %.6f] [Loss: %.4f]  ||| LeftTime %s MaxMemory %dMB' %
@@ -36,8 +36,8 @@ def train_onepart(cfg, model, train_loader, optimizer, scheduler, epoch, time_co
                  loss.item(),
                  time_counter.step(epoch + 1, batch_num),
                  torch.cuda.max_memory_allocated(device) / 1024 ** 2))
-            
-        return  model, optimizer, scheduler, loss_all
+        '''
+    return  model, optimizer, scheduler, loss_all
 
 def valid(cfg, model, valid_loader, epoch, criterion):
     model.eval()

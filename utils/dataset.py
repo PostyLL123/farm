@@ -62,7 +62,7 @@ class WindFarmDataset(Dataset):
         T, N, F = data.shape
         scaled_data = np.zeros_like(data, dtype=np.float32)
 
-        target_vals = scaled_data[..., self.target_idx].reshape(-1, 1)
+        target_vals = data[..., self.target_idx].reshape(-1, 1)
         scaled_target = t_scaler.transform(target_vals)
         scaled_data[..., self.target_idx] = scaled_target.reshape(T, N)
 

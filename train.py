@@ -24,7 +24,7 @@ from utils.normalizer import DataNormalizer, create_normalizer, save_normalizer,
 from utils.dataset import WindFarmDataset
 from nowcasting.main.model import build_optimizer, build_model
 from nowcasting.utils.loss_func import custom_loss
-from nowcasting.utils.checkpoint import save_checkpoint, load_checkpoint
+from utils.checkpoint import save_checkpoint, load_checkpoint
 from main.api.train import train_onepart, valid
 
 def __init__():
@@ -160,17 +160,17 @@ def main():
     fused=True,
     )
     
-    start_epcoh = 0
+    start_epoch = 0
     if cfg.resume_model is not None:
         model, optimizer, scheduler, plan = load_checkpoint(cfg.resume_model, model, optimizer, scheduler)
-        start_epcoh = plan['epoch']
-        cfg.logger.info(f'Resuming training from epoch {start_epcoh}')
+        start_epoch = plan['epoch']
+        cfg.logger.info(f'Resuming training from epoch {start_epoch}')
 
     elif cfg.pre_model is not None:
         if hasattr(cfg, 'start_epoch'):
-            start_epcoh = cfg.start_epoch
+            start_epoch = cfg.start_epoch
         model, _, _, _ = load_checkpoint(cfg.pre_model, model)
-        cfg.logger.info(f'Loaded pre-trained model from {cfg.pre_model}, starting at epoch {start_epcoh}')
+        cfg.logger.info(f'Loaded pre-trained model from {cfg.pre_model}, starting at epoch {start_epoch}')
 
     if distributed():
         model = torch.nn.parallel.DistributedDataParallel(
@@ -232,7 +232,7 @@ def main():
     train_loader = DataLoader(train_dataset, batch_size=cfg.batch_size, shuffle=True, num_workers=0, pin_memory=False)
     valid_loader = DataLoader(valid_dataset, batch_size=cfg.batch_size, shuffle=False, num_workers=0, pin_memory=False)
 
-    start_epoch = 0
+    #start_epoch = 0
     epoch_batch_num = len(train_loader)
     time_counter = TimeCounter(start_epoch, cfg.num_epochs, epoch_batch_num)
     time_counter.reset()
@@ -255,7 +255,7 @@ def main():
                             r_mask2=cfg.loss_config.r_mask2, r_smooth=cfg.loss_config.r_smooth,
                             range_min=cfg.loss_config.range_min, range_max=cfg.loss_config.range_max)
     
-    for iepoch in range(start_epcoh, cfg.num_epochs):
+    for iepoch in range(start_epoch, cfg.num_epochs):
         cfg.logger.info('{:#^75}'.format(f' [Train Epoch] {iepoch} '))
         model, optimizer, scheduler, loss_item = train_onepart(cfg, model, train_loader, optimizer, scheduler, iepoch, time_counter, criterion)
         #save_file = os.path.join(cfg.work_dir, cfg.project, 'model', 'epoch_{}.pth'.format(iepoch))
@@ -282,8 +282,8 @@ def main():
              torch.cuda.max_memory_allocated(device) / 1024 ** 2))
 
         if cfg.scheduler == 'StepLR' or cfg.scheduler == 'CosineLR':
-            if iepoch >= cfg.step_size[0]:
-                scheduler.step()
+            #if iepoch >= cfg.step_size[0]:
+            scheduler.step()
         if val_loss_mean < best_val_loss:
             best_val_loss = val_loss_mean
             save_file = os.path.join(cfg.workdir, cfg.project, cfg.model_name, 'best_model', 'best_model_epoch_{}.pth'.format(iepoch))
